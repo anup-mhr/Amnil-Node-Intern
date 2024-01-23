@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping cart App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="flex">
+        <h1 class="title">Shopping Cart App</h1>
+        <div class="cart-btn" onclick="showCart()">🛒</div>
+    </div>
+    <div class="container">
+       
+    </div>
+
+    <div class="cart-container">
+        <div class="flex">
+            <h2 class="title">Cart</h2>
+            <div class="close-cart" style='cursor: pointer;' onclick='closeCart()'>❌</div>
+        </div>
+        <div class="cart-dom">
+            
+        </div>
+        <p>Total: Rs <span class='total-price'>121</span></p>
+        <button class="btn" onclick='checkout()'>Checkout</button>
+
+    </div>
+
+    <div class="overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
