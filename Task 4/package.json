@@ -1,0 +1,17 @@
+{
+  "name": "user-and-order",
+  "version": "1.0.0",
+  "description": "task 4 - crud operation for user and order",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Anup Maharjan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}

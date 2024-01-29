@@ -11,7 +11,7 @@ function readFile() {
     return JSON.parse(fs.readFileSync('products.json', 'utf-8'));
 }
 function writeFile(data) {
-    fs.writeFileSync('products.json', JSON.stringify(data, null, 2), 'utf-8'); 
+    fs.writeFileSync('products.json', JSON.stringify(data, null, 2), 'utf-8');
 }
 
 app.get('/products', (req, res) => {

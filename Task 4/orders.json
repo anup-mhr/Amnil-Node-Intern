@@ -1,0 +1,36 @@
+[
+  {
+    "userId": 2,
+    "cart": [
+      {
+        "name": "kera",
+        "price": 1.99,
+        "quantity": 20
+      },
+      {
+        "name": "apple",
+        "price": 3.99,
+        "quantity": 5
+      }
+    ],
+    "total": 59.75,
+    "status": "payed"
+  },
+  {
+    "userId": 1,
+    "cart": [
+      {
+        "name": "pine apple",
+        "price": 10.99,
+        "quantity": 2
+      },
+      {
+        "name": "table",
+        "price": 300.99,
+        "quantity": 1
+      }
+    ],
+    "total": 322.97,
+    "status": "Not payed"
+  }
+]
