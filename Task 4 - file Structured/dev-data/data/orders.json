@@ -1,22 +1,5 @@
 [
   {
-    "userId": 2,
-    "cart": [
-      {
-        "name": "kera",
-        "price": 1.99,
-        "quantity": 20
-      },
-      {
-        "name": "apple",
-        "price": 3.99,
-        "quantity": 5
-      }
-    ],
-    "total": 59.75,
-    "status": "payed"
-  },
-  {
     "userId": 1,
     "cart": [
       {
