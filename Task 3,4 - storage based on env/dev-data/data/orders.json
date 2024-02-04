@@ -1,0 +1,47 @@
+[
+  {
+    "userId": 2,
+    "cart": [
+      {
+        "id": 2,
+        "name": "avocada",
+        "price": 12.99,
+        "quantity": 10
+      },
+      {
+        "id": 1,
+        "name": "kela",
+        "price": 12.99,
+        "quantity": 40
+      }
+    ],
+    "total": 649.5,
+    "status": "payed"
+  },
+  {
+    "userId": 2,
+    "cart": [
+      {
+        "id": 3,
+        "name": "akela",
+        "price": 12.99,
+        "quantity": 30
+      }
+    ],
+    "total": 389.7,
+    "status": "payed"
+  },
+  {
+    "userId": 2,
+    "cart": [
+      {
+        "id": 3,
+        "name": "akela",
+        "price": 12.99,
+        "quantity": 30
+      }
+    ],
+    "total": 389.7,
+    "status": "payed"
+  }
+]

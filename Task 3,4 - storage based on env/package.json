@@ -1,0 +1,19 @@
+{
+  "name": "task-4---file-structured",
+  "version": "1.0.0",
+  "description": "same as task 4 but file are more structure and routes are used",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "author": "Anup maharjan",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}

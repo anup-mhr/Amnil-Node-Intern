@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Laptop",
+    "price": 999.99,
+    "description": "Powerful laptop for all your needs",
+    "quantity": 5,
+    "product_type": "Electronics"
+  },
+  {
+    "id": 2,
+    "name": "Bananas",
+    "price": 1.99,
+    "description": "Fresh bananas",
+    "quantity": 20,
+    "product_type": "Grocery"
+  },
+  {
+    "id": 3,
+    "name": "T-shirt",
+    "price": 19.99,
+    "description": "Comfortable cotton t-shirt",
+    "quantity": 3,
+    "product_type": "Clothing"
+  },
+  {
+    "name": "aple",
+    "price": 1.99,
+    "description": "Fresh apple",
+    "quantity": 20,
+    "product_type": "Grocery",
+    "id": 4
+  },
+  {
+    "id": 5,
+    "name": "kera",
+    "price": 12.5,
+    "description": "hawa jastai kera",
+    "quantity": 50,
+    "product_type": "Grocery"
+  }
+]
