@@ -70,7 +70,7 @@ exports.checkoutOrder = (req, res) => {
     const orders = readOrdersFile();
     const userCartIndex = carts.findIndex(c => c.userId === userId);
 
-    //checking if cart is empty 
+    //checking if there is cart or cart is empty 
     if (userCartIndex === -1 || carts[userCartIndex].cart.length < 1) return res.json({
         status: 'fail',
         msg: 'Cart is Empty'
@@ -82,7 +82,8 @@ exports.checkoutOrder = (req, res) => {
     writeOrdersFile(orders)
 
     //resetting the cart
-    carts[userCartIndex].cart = []
+    carts.splice(userCartIndex,1)
+    // carts[userCartIndex].cart = []
     writeCartFile(carts)
     
     return res.status(200).json({

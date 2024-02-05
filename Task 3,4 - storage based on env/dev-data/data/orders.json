@@ -1,47 +1,46 @@
 [
   {
-    "userId": 2,
+    "userId": 1,
     "cart": [
       {
-        "id": 2,
-        "name": "avocada",
-        "price": 12.99,
-        "quantity": 10
+        "name": "sfsfs",
+        "price": 24.99,
+        "quantity": 30
       },
       {
-        "id": 1,
-        "name": "kela",
-        "price": 12.99,
-        "quantity": 40
+        "name": "hahah",
+        "price": 24.99,
+        "quantity": 30
+      },
+      {
+        "name": "hahah",
+        "price": 24.99,
+        "quantity": 3
       }
     ],
-    "total": 649.5,
+    "total": 1574.37,
     "status": "payed"
   },
   {
-    "userId": 2,
+    "userId": 1,
     "cart": [
       {
-        "id": 3,
-        "name": "akela",
-        "price": 12.99,
-        "quantity": 30
-      }
-    ],
-    "total": 389.7,
-    "status": "payed"
-  },
-  {
-    "userId": 2,
-    "cart": [
+        "name": "hahah",
+        "price": 24.99,
+        "quantity": 3
+      },
       {
-        "id": 3,
-        "name": "akela",
-        "price": 12.99,
-        "quantity": 30
+        "name": "hahah",
+        "price": 24.99,
+        "quantity": 3
+      },
+      {
+        "name": "sdfsd",
+        "price": 24.99,
+        "quantity": 3
       }
     ],
-    "total": 389.7,
+    "total": 224.91,
     "status": "payed"
   }
 ]

@@ -19,7 +19,7 @@ exports.getAllOrders = async (req, res) => {
 
 exports.checkoutOrder = async (req, res) => {
     try {
-        const userId = req.params.cartId;
+        const userId = req.params.userId;
 
         const carts = await Cart.findOne({userId})
         console.log(carts)
@@ -34,7 +34,7 @@ exports.checkoutOrder = async (req, res) => {
             cart: carts.cart,
             total: carts.total
         })
-        await Cart.findOneAndDelete(userId)
+        await Cart.fin(userId)
         res.status(200).json({
             status: 'success',
             msg: 'Order has been placed',
