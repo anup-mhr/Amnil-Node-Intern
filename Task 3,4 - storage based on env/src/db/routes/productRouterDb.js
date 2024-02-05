@@ -1,12 +1,13 @@
 const express = require('express')
 const productController = require('./../controllers/productController')
+const uploadImage = require('../../../middleware/uploadImage')
 
 const router = express.Router();
 
 router
     .route('/')
     .get(productController.getAllProducts)
-    .post(productController.createProduct)
+    .post(uploadImage.fields([{ name: 'image', maxCount: 5 }, { name: 'coverImage', maxCount: 1 }]), productController.createProduct)
 
 router
     .route('/:id')

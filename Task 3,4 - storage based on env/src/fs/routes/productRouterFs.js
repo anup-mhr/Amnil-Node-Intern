@@ -1,5 +1,6 @@
 const express = require('express')
 const productController = require('./../controllers/productController')
+const uploadImage = require('../../../middleware/uploadImage')
 
 const router = express.Router();
 
@@ -8,7 +9,8 @@ router.param('id', productController.validateProduct);
 router
     .route('/')
     .get(productController.getAllProducts)
-    .post(productController.validateProductFields, productController.createProduct)
+    .post(uploadImage.fields([{ name: 'image', maxCount: 5 }, { name: 'coverImage', maxCount: 1 }]), productController.createProduct)
+    // .post(productController.validateProductFields, uploadImage.fields([{ name: 'image', maxCount: 5 }, { name: 'coverImage', maxCount: 1 }]), productController.createProduct)
 
 router
     .route('/:id')

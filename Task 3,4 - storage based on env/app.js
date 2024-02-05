@@ -10,6 +10,7 @@ const cartRouterFs = require('./src/fs/routes/cartRoutesFs')
 
 const app = express();
 app.use(express.json());
+app.use(express.static('dev-data'))
 
 const store = process.env.STORE_TO
 console.log(store)

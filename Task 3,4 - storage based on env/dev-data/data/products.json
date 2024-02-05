@@ -38,5 +38,18 @@
     "description": "hawa jastai kera",
     "quantity": 50,
     "product_type": "Grocery"
+  },
+  {
+    "name": "water heater",
+    "price": "24.34",
+    "description": "brand new heater 23 W",
+    "quantity": "200",
+    "product_type": "Electronic",
+    "images": [
+      "image-1707140353683-693483012.png",
+      "image-1707140353687-278315676.png"
+    ],
+    "coverImage": "coverImage-1707140353687-954687597.png",
+    "id": 6
   }
 ]

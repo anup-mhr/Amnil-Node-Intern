@@ -9,7 +9,7 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    description:{
+    description: {
         type: String,
         required: true,
         trim: true
@@ -18,7 +18,13 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    product_type:{
+    product_type: {
+        type: String
+    },
+    images: {
+        type: [String]
+    },
+    coverImage: {
         type: String
     }
 })

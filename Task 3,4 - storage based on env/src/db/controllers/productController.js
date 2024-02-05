@@ -18,7 +18,16 @@ exports.getAllProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
     try {
-        const product = await Product.create(req.body)
+        let productItem = {...req.body}     //making copy of req.body object
+        
+        if (req.files.image) {
+            productItem.images = req.files.image.map(file => file.filename)
+        }
+        if(req.files.coverImage){
+            productItem.coverImage = req.files.coverImage[0].filename;
+        }
+        
+        const product = await Product.create(productItem)
         res.status(201).json({
             status: 'Success',
             msg: 'Product added',

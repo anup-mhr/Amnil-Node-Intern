@@ -35,6 +35,15 @@ exports.getAllProducts = (req, res) => {
 exports.createProduct = (req, res) => {
     const products = readProductFile();
     const newProduct = req.body;
+    console.log(req.files.image)
+
+    if (req.files.image) {
+        newProduct.images = req.files.image.map(file => file.filename)
+    }
+    console.log(req.files.coverImage)
+    if (req.files.coverImage) {
+        newProduct.coverImage = req.files.coverImage[0].filename;
+    }
     newProduct.id = products.length + 1;
     products.push(newProduct);
     writeProductFile(products);
