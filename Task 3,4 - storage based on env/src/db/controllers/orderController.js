@@ -19,16 +19,22 @@ exports.getAllOrders = async (req, res) => {
 
 exports.checkoutOrder = async (req, res) => {
     try {
-        const cartId = req.params.cartId;
+        const userId = req.params.cartId;
 
-        const carts = await Cart.findById(cartId)
-
+        const carts = await Cart.findOne({userId})
+        console.log(carts)
+        if(!carts){
+            return res.status(400).json({
+                status: 'fail',
+                msg: 'Cart is empty'
+            })
+        }
         const newOrder = await Order.create({
-            userId: carts.userId,
+            userId,
             cart: carts.cart,
             total: carts.total
         })
-        await Cart.findByIdAndDelete(cartId)
+        await Cart.findOneAndDelete(userId)
         res.status(200).json({
             status: 'success',
             msg: 'Order has been placed',
