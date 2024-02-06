@@ -28,11 +28,12 @@ exports.createProduct = async (req, res) => {
         }
         
         const product = await Product.create(productItem)
-        res.status(201).json({
-            status: 'Success',
-            msg: 'Product added',
-            data: product
-        });
+        res.redirect('/pages/product')      //use this only when using ejs
+        // res.status(201).json({
+        //     status: 'Success',
+        //     msg: 'Product added',
+        //     data: product
+        // });
     } catch (err) {
         res.status(400).json({
             status: 'fail',

@@ -31,11 +31,13 @@ exports.getAllUsers = async (req, res) => {
 
 exports.createUser = async (req, res) => {
     try {
+        console.log(req.body)
         const newUser = await User.create(req.body)
-        res.status(201).json({
-            status: 'success',
-            data: newUser
-        });
+        return res.redirect('/pages/user')      //use if using ejs only
+        // res.status(201).json({
+        //     status: 'success',
+        //     data: newUser
+        // });
     } catch (err) {
         res.status(400).json({
             status: 'fail',

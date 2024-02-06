@@ -7,9 +7,14 @@ const userRouterFs = require('./src/fs/routes/userRoutesFs')
 const orderRouterFs = require('./src/fs/routes/orderRoutesFs')
 const productRouterFs = require('./src/fs/routes/productRouterFs')
 const cartRouterFs = require('./src/fs/routes/cartRoutesFs')
+const staticRouter = require('./src/db/routes/staticRoutes')
 
 const app = express();
+
+app.set('view engine', 'ejs');
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));       //for reading form data
 app.use(express.static('dev-data'))
 
 const store = process.env.STORE_TO
@@ -17,15 +22,16 @@ console.log(store)
 
 //ROUTES
 if (store === 'DB') {
+    app.use('/pages', staticRouter)
     app.use('/users', userRouterDb)
     app.use('/products', productRouterDb)
-    app.use('/carts',cartRouterDb)
+    app.use('/carts', cartRouterDb)
     app.use('/orders', orderRouterDb)
 } else if (store === 'FS') {
     app.use('/users', userRouterFs)
     app.use('/orders', orderRouterFs)
     app.use('/products', productRouterFs)
-    app.use('/carts/',cartRouterFs)
+    app.use('/carts/', cartRouterFs)
 } else {
     console.log('Invalid Storage Option')
 }
