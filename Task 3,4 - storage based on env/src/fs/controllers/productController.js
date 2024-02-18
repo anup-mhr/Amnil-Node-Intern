@@ -13,6 +13,8 @@ exports.validateProduct = (req, res, next, val) => {
 }
 
 exports.validateProductFields = (req, res, next) => {
+    console.log('uh0--------------------------')
+    console.log(req.body)
     const { name, price, description, quantity, product_type } = req.body;
     if (!name || !price || !description || !quantity || !product_type) {
         return res.status(400).json({

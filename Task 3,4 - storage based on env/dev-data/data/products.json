@@ -51,5 +51,17 @@
     ],
     "coverImage": "coverImage-1707140353687-954687597.png",
     "id": 6
+  },
+  {
+    "name": "water heater",
+    "price": "24.34",
+    "description": "brand new heater 23 W",
+    "quantity": "200",
+    "product_type": "Electronic",
+    "images": [
+      "image-1708172063567-244241537.png"
+    ],
+    "coverImage": "coverImage-1708172063607-970499224.png",
+    "id": 7
   }
 ]

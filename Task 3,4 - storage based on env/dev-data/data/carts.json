@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "userId": 1,
+    "cart": [
+      {
+        "name": "sdfsd",
+        "price": 24.99,
+        "quantity": 3
+      }
+    ],
+    "total": 74.97
+  }
+]

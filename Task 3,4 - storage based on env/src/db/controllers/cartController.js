@@ -8,7 +8,7 @@ exports.getAllCarts = async (req, res) => {
             result: carts.length,
             data: carts
         });
-    } catch (arr) {
+    } catch (err) {
         res.status(400).json({
             status: 'fail',
             msg: err
