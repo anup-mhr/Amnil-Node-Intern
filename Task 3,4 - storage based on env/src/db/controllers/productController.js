@@ -18,6 +18,7 @@ exports.getAllProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
     try {
+        console.log(req.body)
         let productItem = {...req.body}     //making copy of req.body object
         
         if (req.files.image) {

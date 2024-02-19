@@ -26,7 +26,12 @@ const productSchema = mongoose.Schema({
     },
     coverImage: {
         type: String
+    },
+    storeId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'stores'
     }
+
 })
 
 const Product = mongoose.model('Product', productSchema)
