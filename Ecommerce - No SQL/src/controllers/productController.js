@@ -1,8 +1,9 @@
-const Product = require("../models/productModel");
+// const Product = require("../models/productModel");
+const productService = require("../services/productService");
 
 exports.getAllProducts = async (req, res, next) => {
   try {
-    const products = await Product.find();
+    const products = await productService.getAllproducts();
     res.json({
       status: "Success",
       result: products.length,
@@ -15,16 +16,7 @@ exports.getAllProducts = async (req, res, next) => {
 
 exports.createProduct = async (req, res, next) => {
   try {
-    let productItem = { ...req.body }; //making copy of req.body object
-
-    if (req.files.image) {
-      productItem.images = req.files.image.map((file) => file.filename);
-    }
-    if (req.files.coverImage) {
-      productItem.coverImage = req.files.coverImage[0].filename;
-    }
-
-    const product = await Product.create(productItem);
+    const product = await productService.createProduct(req.files, req.body);
     // res.redirect('/pages/product')      //use this only when using ejs
     res.status(201).json({
       status: "Success",
@@ -38,10 +30,7 @@ exports.createProduct = async (req, res, next) => {
 
 exports.updateProduct = async (req, res, next) => {
   try {
-    const newProduct = await Product.findByIdAndUpdate(req.params.productId, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const newProduct = await productService.updateProduct(req.params.productId, req.body);
     res.status(200).json({
       status: "Success",
       msg: "Product has been updated",
@@ -54,7 +43,7 @@ exports.updateProduct = async (req, res, next) => {
 
 exports.deleteProduct = async (req, res, next) => {
   try {
-    const product = await Product.findByIdAndDelete(req.params.productId);
+    const product = await productService.deleteProduct(req.params.productId);
     res.status(204).json({
       status: "success",
       msg: "Product deleted Successfully",
@@ -67,10 +56,7 @@ exports.deleteProduct = async (req, res, next) => {
 
 exports.updateProductQantity = async (req, res, next) => {
   try {
-    const newProduct = await Product.findByIdAndUpdate(req.params.productId, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const newProduct = await productService.updateProductQantity(req.params.productId, req.body);
     res.status(200).json({
       status: "Success",
       msg: "Product quantity has been updated",
@@ -83,41 +69,7 @@ exports.updateProductQantity = async (req, res, next) => {
 
 exports.filterProducts = async (req, res, next) => {
   try {
-    //1) filtering
-    const queryObj = { ...req.query };
-    const excludedFields = ["page", "sortBy", "limit", "fields"];
-    excludedFields.forEach((el) => delete queryObj[el]);
-
-    //2) Advance filtering
-    // let queryStr = JSON.stringify(queryObj);
-    // queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-
-    let query = Product.find({
-      name: {
-        $regex: new RegExp(queryObj.q, "i"),
-      },
-    });
-
-    // sorting
-    if (req.query.sortBy) {
-      query = query.sort(req.query.sortBy);
-    }
-
-    if (req.query.fields) {
-      const fields = req.query.fields.split(",").join(" ");
-      query = query.select(fields);
-    } else {
-      query = query.select("-__v");
-    }
-
-    if (req.query.productType) {
-      query = query.find({
-        product_type: req.query.productType,
-      });
-    }
-
-    //execute query
-    const products = await query;
+    const products = await productService.searchProduct(req.query);
     res.status(200).json({
       status: "success",
       result: products.length,
@@ -130,11 +82,7 @@ exports.filterProducts = async (req, res, next) => {
 
 exports.outOfStock = async (req, res, next) => {
   try {
-    const products = await Product.find({
-      quantity: {
-        $lt: 5,
-      },
-    });
+    const products = await productService.quantityLessThan5();
     res.status(200).json({
       status: "Success",
       result: products.length,

@@ -1,10 +1,8 @@
-const AppError = require("../utils/appError");
-const Cart = require("../models/cartModel");
-const Product = require("../models/productModel");
+const cartService = require("../services/cartService");
 
 exports.getAllCarts = async (req, res, next) => {
   try {
-    const carts = await Cart.find();
+    const carts = await cartService.getAllCarts();
     res.json({
       status: "success",
       result: carts.length,
@@ -17,22 +15,7 @@ exports.getAllCarts = async (req, res, next) => {
 
 exports.addToCart = async (req, res, next) => {
   try {
-    const product = await Product.findById(req.body.product_id);
-    if (!product) {
-      return next(new AppError("Product is not available", 404));
-    }
-
-    let userCart = await Cart.findOne({ user_id: req.user._id });
-    let cart;
-    if (!userCart || userCart.length === 0) {
-      cart = await Cart.create({
-        user_id: req.user.id,
-        cart: [req.body],
-      });
-    } else {
-      userCart.cart.push(req.body);
-      cart = await userCart.save();
-    }
+    const cart = await cartService.addToCart(req.user._id, req.body);
 
     res.status(201).json({
       status: "success",
@@ -46,7 +29,7 @@ exports.addToCart = async (req, res, next) => {
 
 exports.getUserCart = async (req, res, next) => {
   try {
-    const userCart = await Cart.find({ user_id: req.user._id });
+    const userCart = await cartService.getCartByUserId(req.user._id);
     res.status(200).json({
       status: "success",
       result: userCart.length,

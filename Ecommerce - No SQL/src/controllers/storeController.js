@@ -1,19 +1,8 @@
-const Store = require("../models/storeModel");
-const ObjectId = require("mongoose").Types.ObjectId;
+const storeService = require("../services/storeService");
 
 exports.createStore = async (req, res, next) => {
   try {
-    const { name, type, coordinates } = req.body;
-    const store = await Store.create({
-      name,
-      type,
-      user_id: req.user._id,
-      location: {
-        type: "Point",
-        coordinates,
-      },
-      logo: req.file.filename,
-    });
+    const store = await storeService.createStore(req.user._id, req.file, req.body);
     res.json({
       status: "success",
       data: store,
@@ -22,9 +11,10 @@ exports.createStore = async (req, res, next) => {
     next(err);
   }
 };
+
 exports.getAllStore = async (req, res, next) => {
   try {
-    const stores = await Store.find();
+    const stores = await storeService.getAllStore();
     res.json({
       status: "success",
       data: stores,
@@ -36,19 +26,7 @@ exports.getAllStore = async (req, res, next) => {
 
 exports.findNearStores = async (req, res, next) => {
   try {
-    const { longitude, latitude } = req.body;
-    const stores = await Store.find({
-      location: {
-        $near: {
-          $geometry: {
-            type: "Point",
-            coordinates: [parseFloat(longitude), parseFloat(latitude)],
-          },
-          $maxDistance: 1000, // 1KM in meters
-          // $minDiastance: 10
-        },
-      },
-    });
+    const stores = await storeService.StoresNearInMeter(1000, req.body);
     res.json({
       status: "success",
       data: stores,
@@ -60,21 +38,10 @@ exports.findNearStores = async (req, res, next) => {
 
 exports.getStoreProducts = async (req, res, next) => {
   try {
-    const storeId = req.params.storeId;
-    const store = await Store.aggregate([
-      { $match: { _id: new ObjectId(storeId) } }, //converting str to obj
-      {
-        $lookup: {
-          from: "products",
-          localField: "_id",
-          foreignField: "store_id",
-          as: "productList",
-        },
-      },
-    ]);
+    const productList = await storeService.getProductsOfStore(req.params.storeId);
     res.json({
       status: "success",
-      data: store[0].productList,
+      data: productList,
     });
   } catch (err) {
     next(err);

@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
 const User = require("../models/userModel");
 const AppError = require("../utils/appError");
 
@@ -18,6 +19,10 @@ exports.createUser = async (userData) => {
     throw new AppError("Missing required fields", 400);
   }
 
+  if (userData.password.length < 8) {
+    throw new AppError("Password must be at least 8 characters", 400);
+  }
+
   //hashing the password
   userData.password = await bcrypt.hash(userData.password, 12);
   const newUser = await User.create(userData);
@@ -32,6 +37,7 @@ exports.login = async (userData) => {
   if (!email || !password) {
     throw new AppError("Please provide email and password", 400);
   }
+
   //2) check if user exist and password is correct
   const user = await User.findOne({ email }).select("+password");
   if (!user || !(await bcrypt.compare(password, user.password))) {
