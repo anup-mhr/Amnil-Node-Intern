@@ -3,9 +3,7 @@ const ObjectId = require("mongoose").Types.ObjectId;
 
 exports.createStore = async (req, res) => {
     try {
-        console.log(req.body)
         const { name, type, coordinates, userId } = req.body
-        console.log(coordinates)
         const store = await Store.create({
             name,
             type,
@@ -14,7 +12,7 @@ exports.createStore = async (req, res) => {
                 type: "Point",
                 coordinates
             }
-            ,logo: req.file.filename
+            , logo: req.file.filename
         })
         res.json({
             status: 'success',
@@ -43,8 +41,8 @@ exports.getAllStore = async (req, res) => {
 }
 
 exports.findNearStores = async (req, res) => {
-    const { longitude, latitude } = req.body
     try {
+        const { longitude, latitude } = req.body
         const stores = await Store.find({
             location: {
                 $near: {
@@ -71,15 +69,17 @@ exports.findNearStores = async (req, res) => {
 
 exports.getStoreProducts = async (req, res) => {
     try {
-        const storeId = req.params.storeId;    
+        const storeId = req.params.storeId;
         const store = await Store.aggregate([
-            {$match: { _id: new ObjectId(storeId) }},   //converting str to obj
-            {$lookup:{
-                from : 'products',
-                localField: "_id",
-                foreignField: "storeId",
-                as: "productList"
-            }}
+            { $match: { _id: new ObjectId(storeId) } },   //converting str to obj
+            {
+                $lookup: {
+                    from: 'products',
+                    localField: "_id",
+                    foreignField: "storeId",
+                    as: "productList"
+                }
+            }
         ])
         res.json({
             status: 'success',

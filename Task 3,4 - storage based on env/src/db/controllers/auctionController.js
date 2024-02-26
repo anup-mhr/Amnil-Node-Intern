@@ -44,8 +44,9 @@ exports.getAllAuctions = async (req, res) => {
 
 exports.getAuctionById = async (req, res) => {
     try {
+        console.log('sds')
         const auctionId = req.params.auctionId;
-        const auction = await Auction.findOne(auctionId);
+        const auction = await Auction.findById(auctionId);
         res.json({
             status: 'success',
             data: auction

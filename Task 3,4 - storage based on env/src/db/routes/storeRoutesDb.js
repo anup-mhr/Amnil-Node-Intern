@@ -4,11 +4,13 @@ const uploadImage = require('../../../middleware/uploadImage')
 
 const router = express.Router()
 
+
+
 router.route('/')
     .get(storeController.getAllStore)
     .post(uploadImage.single('storeLogo'), storeController.createStore)
 
-router.route('/:storeId')
+router.route('/storeId')
     .get(storeController.getStoreProducts)
 
 router.route('/search')
