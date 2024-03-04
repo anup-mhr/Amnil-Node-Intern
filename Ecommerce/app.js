@@ -2,6 +2,7 @@ const express = require("express");
 
 const AppError = require("./src/utils/appError");
 const globalErrorHandler = require("./middleware/globalErrorHandler");
+const logger = require("./src/utils/logger");
 
 const userRouter = require("./src/routes/userRoutes");
 const productRouter = require("./src/routes/productRouter");
@@ -30,7 +31,8 @@ app.use("/store", storeRouter);
 
 //Invalid url handling middleware
 app.all("*", (req, res, next) => {
-  next(new AppError(`Can't fint ${req.originalUrl} on this server`, 404));
+  logger.error(`Can't find ${req.originalUrl} on this server`);
+  next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
 });
 
 //Global error handling middleware

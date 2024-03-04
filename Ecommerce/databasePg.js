@@ -1,4 +1,5 @@
 const { Pool } = require("pg");
+const logger = require("./src/utils/logger");
 
 const pool = new Pool({
   user: process.env.USER,
@@ -9,11 +10,11 @@ const pool = new Pool({
 });
 
 pool.on("connect", () => {
-  console.log("connected to pg db");
+  logger.info("Successfully connected to postgres db");
 });
 
 pool.on("release", () => {
-  console.log("connection terminated");
+  logger.info("Connected to postgres terminated");
 });
 
 module.exports = pool;

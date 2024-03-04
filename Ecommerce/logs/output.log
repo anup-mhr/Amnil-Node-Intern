@@ -1,0 +1,143 @@
+[04-03-2024 07-03-50] INFO: Listening on localhost port 3000
+[04-03-2024 07-03-50] INFO: Successfully connected to mongodb
+[04-03-2024 07-03-19] INFO: User logged in Successfully
+[04-03-2024 07-03-58] INFO: Listening on localhost port 3000
+[04-03-2024 07-03-58] INFO: Successfully connected to mongodb
+[04-03-2024 07-03-01] INFO: User logged in Successfully
+    user: "65d8832b0547231b0d21628e"
+[04-03-2024 07-03-29] INFO: Starting token verification process
+[04-03-2024 07-03-29] ERROR: Token not found in headers
+[04-03-2024 07-03-29] INFO: Token validated successfully
+[04-03-2024 07-03-29] INFO: User retrieved successfully
+[04-03-2024 07-03-29] INFO: Starting access restriction process
+[04-03-2024 07-03-29] INFO: User has permission to perform this task
+[04-03-2024 07-03-29] INFO: Retrieving all users
+[04-03-2024 07-03-46] INFO: Starting token verification process
+[04-03-2024 07-03-46] ERROR: Token not found in headers
+[04-03-2024 07-03-46] INFO: Token validated successfully
+[04-03-2024 07-03-46] INFO: User retrieved successfully
+[04-03-2024 07-03-46] INFO: Starting access restriction process
+[04-03-2024 07-03-46] INFO: User has permission to perform this task
+[04-03-2024 07-03-46] INFO: Retrieving all stores
+[04-03-2024 07-03-03] INFO: Retrieving all products
+[04-03-2024 07-03-44] INFO: Starting token verification process
+[04-03-2024 07-03-44] ERROR: Token not found in headers
+[04-03-2024 07-03-44] ERROR: Error occurred during token verification
+[04-03-2024 07-03-49] INFO: Starting token verification process
+[04-03-2024 07-03-49] ERROR: Token not found in headers
+[04-03-2024 07-03-49] INFO: Token validated successfully
+[04-03-2024 07-03-49] INFO: User retrieved successfully
+[04-03-2024 07-03-49] INFO: Retrieving all auctions
+[04-03-2024 07-03-09] INFO: Retrieving all products
+[04-03-2024 07-03-25] INFO: Starting token verification process
+[04-03-2024 07-03-25] ERROR: Token not found in headers
+[04-03-2024 07-03-25] ERROR: Error occurred during token verification
+[04-03-2024 07-03-51] INFO: Starting token verification process
+[04-03-2024 07-03-51] ERROR: Token not found in headers
+[04-03-2024 07-03-51] INFO: Token validated successfully
+[04-03-2024 07-03-51] INFO: User retrieved successfully
+[04-03-2024 07-03-51] INFO: Starting access restriction process
+[04-03-2024 07-03-51] INFO: User has permission to perform this task
+[04-03-2024 07-03-51] INFO: Auction created successfully
+[04-03-2024 07-03-22] INFO: User logged in Successfully
+    user: "65d888026024c78947b309dd"
+[04-03-2024 07-03-42] INFO: Starting token verification process
+[04-03-2024 07-03-42] ERROR: Token not found in headers
+[04-03-2024 07-03-49] INFO: Starting token verification process
+[04-03-2024 07-03-49] ERROR: Token not found in headers
+[04-03-2024 07-03-49] INFO: Token validated successfully
+[04-03-2024 07-03-49] INFO: User retrieved successfully
+[04-03-2024 07-03-49] INFO: 65e529af68d15008be41b6d3
+[04-03-2024 07-03-49] INFO: Bidding for the auction
+    auctionId: "65e529af68d15008be41b6d3"
+    userId: "65d888026024c78947b309dd"
+[04-03-2024 07-03-50] INFO: user 65d888026024c78947b309dd successfully bidded for auction 65e529af68d15008be41b6d3
+[04-03-2024 07-03-13] INFO: Starting token verification process
+[04-03-2024 07-03-13] ERROR: Token not found in headers
+[04-03-2024 07-03-13] ERROR: Error occurred during token verification
+[04-03-2024 07-03-17] INFO: Starting token verification process
+[04-03-2024 07-03-17] ERROR: Token not found in headers
+[04-03-2024 07-03-17] INFO: Token validated successfully
+[04-03-2024 07-03-17] INFO: User retrieved successfully
+[04-03-2024 07-03-17] INFO: Created store successfully
+    $__: {
+      "activePaths": {
+        "paths": {
+          "type": "require",
+          "name": "require"
+        },
+        "states": {
+          "require": {
+            "type": true,
+            "name": true
+          },
+          "default": {},
+          "modify": {}
+        }
+      },
+      "op": null,
+      "saving": null,
+      "$versionError": null,
+      "saveOptions": null,
+      "validating": null,
+      "cachedRequired": {},
+      "backup": {
+        "activePaths": {
+          "modify": {
+            "name": true,
+            "logo": true,
+            "type": true,
+            "location": true,
+            "user_id": true
+          },
+          "default": {
+            "location.type": true,
+            "location.coordinates": true,
+            "_id": true
+          }
+        },
+        "validationError": null
+      },
+      "inserting": true,
+      "savedState": {}
+    }
+    _doc: {
+      "name": "happy",
+      "logo": "storeLogo-1709517317384-959432395.jpg",
+      "type": "Electronic",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          27.68228,
+          85.27113
+        ]
+      },
+      "user_id": "65d888026024c78947b309dd",
+      "_id": "65e52a0568d15008be41b6dc",
+      "__v": 0
+    }
+    $isNew: false
+[04-03-2024 07-03-53] INFO: Listening on localhost port 3000
+[04-03-2024 07-03-53] INFO: Successfully connected to mongodb
+[04-03-2024 07-03-01] INFO: Starting token verification process
+[04-03-2024 07-03-01] ERROR: Token not found in headers
+[04-03-2024 07-03-01] INFO: Token validated successfully
+[04-03-2024 07-03-01] INFO: User retrieved successfully
+[04-03-2024 07-03-01] INFO (asda): Created store successfully
+    logo: "storeLogo-1709517421822-365971645.jpg"
+    type: "Electronic"
+    location: {
+      "type": "Point",
+      "coordinates": [
+        27.68228,
+        85.27113
+      ]
+    }
+    user_id: "65d888026024c78947b309dd"
+    _id: "65e52a6d0ca995d02158ea92"
+    __v: 0
+[04-03-2024 07-03-22] INFO: User logged in Successfully
+    user: "65d8832b0547231b0d21628e"
+[04-03-2024 07-03-57] INFO: New user created successfully
+[04-03-2024 07-03-35] INFO: Listening on localhost port 3000
+[04-03-2024 07-03-35] INFO: Successfully connected to mongodb

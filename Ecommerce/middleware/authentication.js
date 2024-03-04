@@ -2,17 +2,25 @@ const jwt = require("jsonwebtoken");
 const User = require("./../src/models/userModel");
 const AppError = require("./../src/utils/appError");
 const pool = require("../databasePg");
+const logger = require("../src/utils/logger");
 
 exports.verify = async (req, res, next) => {
   try {
+    logger.info("Starting token verification process");
+
     // 1) getting token and check its there
     if (!req.headers.authorization || !req.headers.authorization.startsWith("Bearer")) {
+      logger.error("Token not found in headers");
       return next(new AppError("You are not logged in! Please login to get access", 401));
     }
     const token = req.headers.authorization.split(" ")[1];
 
+    logger.error("Token not found in headers");
+
     // 2) validate token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    logger.info("Token validated successfully");
 
     // 3) check if user still exist
     let user;
@@ -26,22 +34,33 @@ exports.verify = async (req, res, next) => {
       user = result.rows[0];
     }
     if (!user) {
+      logger.error("User belonging to this token does not exist");
       return next(new AppError("the user belonging to this token does o longer exist", 401));
     }
 
+    logger.info("User retrieved successfully");
     // 4) grant access to protected routes
     req.user = user;
     next();
   } catch (err) {
+    logger.error("Error occurred during token verification", { error: err });
     next(err);
   }
 };
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return next(new AppError("You do not have permission to perform this task", 403));
+    try {
+      logger.info("Starting access restriction process");
+      if (!roles.includes(req.user.role)) {
+        logger.fatal(`Unauthorized access attempt by user ${req.user.username}`);
+        return next(new AppError("You do not have permission to perform this task", 403));
+      }
+      logger.info("User has permission to perform this task");
+      next();
+    } catch (err) {
+      logger.error("Error occurred during access restriction", { error: err });
+      next(err);
     }
-    next();
   };
 };

@@ -1,31 +1,57 @@
 const AppError = require("../utils/appError");
 const Cart = require("../models/cartModel");
 const Product = require("../models/productModel");
+const logger = require("../utils/logger");
 
 exports.getAllCarts = async () => {
-  return await Cart.find();
+  try {
+    logger.info("Retrieving all carts");
+
+    return await Cart.find();
+  } catch (error) {
+    logger.error("Error occurred while retrieving all carts:", error);
+    throw error;
+  }
 };
 
 exports.addToCart = async (userId, productData) => {
-  const product = await Product.findById(productData.product_id);
-  if (!product) {
-    throw new AppError("Product is not available", 404);
-  }
+  try {
+    logger.info("Validating product");
 
-  let userCart = await Cart.findOne({ user_id: userId });
-  let cart;
-  if (!userCart || userCart.length === 0) {
-    cart = await Cart.create({
-      user_id: userId,
-      cart: [productData],
-    });
-  } else {
-    userCart.cart.push(productData);
-    cart = await userCart.save();
+    const product = await Product.findById(productData.product_id);
+    if (!product) {
+      logger.error("Product not found", { productId: productData.product_id });
+
+      throw new AppError("Product is not available", 404);
+    }
+
+    let userCart = await Cart.findOne({ user_id: userId });
+    let cart;
+    if (!userCart || userCart.length === 0) {
+      cart = await Cart.create({
+        user_id: userId,
+        cart: [productData],
+      });
+    } else {
+      userCart.cart.push(productData);
+      cart = await userCart.save();
+    }
+    logger.info("Product added to cart successfully", cart);
+
+    return cart;
+  } catch (error) {
+    logger.error("Error occured while adding to cart", error);
+    throw error;
   }
-  return cart;
 };
 
 exports.getCartByUserId = async (userId) => {
-  return await Cart.find({ user_id: userId });
+  try {
+    logger.info(`Retrieving cart of user ${userId}`);
+
+    return await Cart.find({ user_id: userId });
+  } catch (error) {
+    logger.error(`Error occured while retrieving to cart of user= ${userId}`);
+    throw error;
+  }
 };
