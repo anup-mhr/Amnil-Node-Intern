@@ -15,11 +15,8 @@ exports.verify = async (req, res, next) => {
     }
     const token = req.headers.authorization.split(" ")[1];
 
-    logger.error("Token not found in headers");
-
     // 2) validate token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
     logger.info("Token validated successfully");
 
     // 3) check if user still exist
@@ -44,7 +41,7 @@ exports.verify = async (req, res, next) => {
     next();
   } catch (err) {
     logger.error("Error occurred during token verification", { error: err });
-    next(err);
+    next(new AppError("JWT token expired", 401));
   }
 };
 

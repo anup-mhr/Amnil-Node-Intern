@@ -2,6 +2,8 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const logger = require("./src/utils/logger");
 
+const port = process.env.PORT || 3000;
+
 dotenv.config();
 const app = require("./app");
 
@@ -15,8 +17,7 @@ if (process.env.STORE_AREA === "mongodb") {
     });
 }
 
-const port = process.env.PORT || 3000;
-
 app.listen(port, () => {
   logger.info(`Listening on localhost port ${port}`);
+  logger.info(`Documentation available at http://localhost:${port}/docs`);
 });

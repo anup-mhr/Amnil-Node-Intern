@@ -13,6 +13,8 @@ const orderSchema = new mongoose.Schema({
   total: {
     type: Number,
   },
+  //TODO: ADD order_date, order_location
+  //TODO: create new table for return reason- order_id, return_reason
   order_status: {
     type: String,
     default: "payed",

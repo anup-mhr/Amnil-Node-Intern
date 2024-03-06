@@ -39,7 +39,7 @@ exports.updateProduct = async (id, data) => {
     if (!newProduct) {
       throw new AppError("Product not found", 404);
     }
-    logger.info(newProduct, "Product is updated");
+    logger.info(newProduct._doc, "Product is updated");
 
     return newProduct;
   } catch (error) {

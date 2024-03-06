@@ -81,7 +81,7 @@ exports.updateUser = async (id, userData) => {
     if (!user) {
       throw new AppError("User not available", 404);
     }
-    logger.info(user, "User is updated");
+    logger.info(user._doc, "User is updated");
 
     return user;
   } catch (error) {

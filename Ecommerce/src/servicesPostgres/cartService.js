@@ -33,10 +33,12 @@ exports.addToCart = async (userId, productData) => {
     if (!userCart || userCart.length === 0) {
       query = `INSERT INTO carts(user_id, cart) values(${userId},'[${JSON.stringify(productData)}]') RETURNING *`;
     } else {
+      //! problem here
       query = `UPDATE carts
     SET cart = cart || '[${JSON.stringify(productData)}]'::jsonb
     WHERE user_id = ${userId} RETURNING *;`;
     }
+    logger.info(query);
     cart = (await pool.query(query)).rows[0];
 
     logger.info("Product added to cart successfully", cart);

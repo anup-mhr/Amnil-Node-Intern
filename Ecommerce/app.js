@@ -1,4 +1,6 @@
 const express = require("express");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./src/utils/swagger");
 
 const AppError = require("./src/utils/appError");
 const globalErrorHandler = require("./middleware/globalErrorHandler");
@@ -28,6 +30,8 @@ app.use("/carts", cartRouter);
 app.use("/orders", orderRouter);
 app.use("/auctions", auctionRouter);
 app.use("/store", storeRouter);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //Invalid url handling middleware
 app.all("*", (req, res, next) => {
