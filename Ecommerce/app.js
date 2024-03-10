@@ -12,6 +12,7 @@ const cartRouter = require("./src/routes/cartRoutes");
 const orderRouter = require("./src/routes/orderRoutes");
 const auctionRouter = require("./src/routes/auctionRoutes");
 const storeRouter = require("./src/routes/storeRoutes");
+const analyticsRouter = require("./src/routes/analyticsRoutes");
 const staticRouter = require("./src/routes/staticRoutes");
 
 const app = express();
@@ -29,6 +30,7 @@ app.use("/products", productRouter);
 app.use("/carts", cartRouter);
 app.use("/orders", orderRouter);
 app.use("/auctions", auctionRouter);
+app.use("/analytics", analyticsRouter);
 app.use("/store", storeRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

@@ -1,129 +1,36 @@
-[06-03-2024 09-03-34] INFO: Listening on localhost port 3000
-[06-03-2024 09-03-34] INFO: Documentation available at http://localhost:3000/docs
-[06-03-2024 09-03-42] INFO: Starting token verification process
-[06-03-2024 09-03-42] ERROR: Error occurred during token verification
-[06-03-2024 09-03-53] INFO: Starting token verification process
-[06-03-2024 09-03-53] INFO: Token validated successfully
-[06-03-2024 09-03-53] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-53] INFO: Connected to postgres terminated
-[06-03-2024 09-03-53] INFO: User retrieved successfully
-[06-03-2024 09-03-53] INFO: Retrieving stores near 1000merters of location:[object Object]
-[06-03-2024 09-03-53] INFO: Connected to postgres terminated
-[06-03-2024 09-03-11] INFO: Starting token verification process
-[06-03-2024 09-03-11] ERROR: Token not found in headers
-[06-03-2024 09-03-27] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-27] INFO: Connected to postgres terminated
-[06-03-2024 09-03-28] INFO: User logged in Successfully
-    user: 6
-[06-03-2024 09-03-46] INFO: Starting token verification process
-[06-03-2024 09-03-46] INFO: Token validated successfully
-[06-03-2024 09-03-46] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-46] INFO: Connected to postgres terminated
-[06-03-2024 09-03-46] INFO: User retrieved successfully
-[06-03-2024 09-03-46] INFO: Starting access restriction process
-[06-03-2024 09-03-46] INFO: User has permission to perform this task
-[06-03-2024 09-03-46] INFO: Retrieving all stores
-[06-03-2024 09-03-46] INFO: Connected to postgres terminated
-[06-03-2024 09-03-58] INFO: Starting token verification process
-[06-03-2024 09-03-58] INFO: Token validated successfully
-[06-03-2024 09-03-58] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-58] INFO: Connected to postgres terminated
-[06-03-2024 09-03-58] INFO: User retrieved successfully
-[06-03-2024 09-03-58] INFO: Retrieving all products of store 1
-[06-03-2024 09-03-58] INFO: Connected to postgres terminated
-[06-03-2024 09-03-13] INFO: Starting token verification process
-[06-03-2024 09-03-13] INFO: Token validated successfully
-[06-03-2024 09-03-14] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-14] INFO: Connected to postgres terminated
-[06-03-2024 09-03-14] INFO: User retrieved successfully
-[06-03-2024 09-03-14] INFO: Retrieving all products of store 1
-[06-03-2024 09-03-14] INFO: Connected to postgres terminated
-[06-03-2024 09-03-16] INFO: Starting token verification process
-[06-03-2024 09-03-16] INFO: Token validated successfully
-[06-03-2024 09-03-16] INFO: Connected to postgres terminated
-[06-03-2024 09-03-16] INFO: User retrieved successfully
-[06-03-2024 09-03-16] INFO: Retrieving all products of store 2
-[06-03-2024 09-03-16] INFO: Connected to postgres terminated
-[06-03-2024 09-03-30] INFO: Starting token verification process
-[06-03-2024 09-03-30] INFO: Token validated successfully
-[06-03-2024 09-03-31] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-31] INFO: Connected to postgres terminated
-[06-03-2024 09-03-31] INFO: User retrieved successfully
-[06-03-2024 09-03-31] INFO: Retrieving all products of store 2
-[06-03-2024 09-03-31] INFO: Connected to postgres terminated
-[06-03-2024 09-03-27] ERROR: Can't find /auction on this server
-[06-03-2024 09-03-27] INFO: Listening on localhost port 3000
-[06-03-2024 09-03-27] INFO: Documentation available at http://localhost:3000/docs
-[06-03-2024 09-03-28] ERROR: Can't find /auction on this server
-[06-03-2024 09-03-52] INFO: Starting token verification process
-[06-03-2024 09-03-53] INFO: Token validated successfully
-[06-03-2024 09-03-53] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-53] INFO: Connected to postgres terminated
-[06-03-2024 09-03-53] INFO: User retrieved successfully
-[06-03-2024 09-03-53] INFO: Retrieving all auctions
-[06-03-2024 09-03-53] INFO: Connected to postgres terminated
-[06-03-2024 09-03-11] INFO: Starting token verification process
-[06-03-2024 09-03-11] INFO: Token validated successfully
-[06-03-2024 09-03-11] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-11] INFO: Connected to postgres terminated
-[06-03-2024 09-03-11] INFO: User retrieved successfully
-[06-03-2024 09-03-11] INFO: Retrieving auction
-[06-03-2024 09-03-11] INFO: Connected to postgres terminated
-[06-03-2024 09-03-30] INFO: Starting token verification process
-[06-03-2024 09-03-30] INFO: Token validated successfully
-[06-03-2024 09-03-30] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-30] INFO: Connected to postgres terminated
-[06-03-2024 09-03-30] INFO: User retrieved successfully
-[06-03-2024 09-03-30] INFO: Starting access restriction process
-[06-03-2024 09-03-30] INFO: User has permission to perform this task
-[06-03-2024 09-03-30] INFO: Retrieving the bidder of auction 2
-[06-03-2024 09-03-30] INFO: Connected to postgres terminated
-[06-03-2024 09-03-57] INFO: Starting token verification process
-[06-03-2024 09-03-57] ERROR: Token not found in headers
-[06-03-2024 09-03-16] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-16] INFO: Connected to postgres terminated
-[06-03-2024 09-03-16] INFO: User logged in Successfully
-    user: 4
-[06-03-2024 09-03-33] INFO: Starting token verification process
-[06-03-2024 09-03-33] INFO: Token validated successfully
-[06-03-2024 09-03-33] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-33] INFO: Connected to postgres terminated
-[06-03-2024 09-03-33] INFO: User retrieved successfully
-[06-03-2024 09-03-33] INFO: Connected to postgres terminated
-[06-03-2024 09-03-33] ERROR: Error occured while bidding an auction
-[06-03-2024 09-03-51] INFO: Starting token verification process
-[06-03-2024 09-03-51] INFO: Token validated successfully
-[06-03-2024 09-03-51] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-51] INFO: Connected to postgres terminated
-[06-03-2024 09-03-51] INFO: User retrieved successfully
-[06-03-2024 09-03-51] INFO: Starting access restriction process
-[06-03-2024 09-03-51] INFO: User has permission to perform this task
-[06-03-2024 09-03-51] INFO: Deciding the winner of the auction 2
-[06-03-2024 09-03-51] INFO: Connected to postgres terminated
-[06-03-2024 09-03-51] INFO: Calculating the winner
-[06-03-2024 09-03-51] ERROR: Error occured while deciding the winner
-[06-03-2024 09-03-28] INFO: Listening on localhost port 3000
-[06-03-2024 09-03-28] INFO: Documentation available at http://localhost:3000/docs
-[06-03-2024 09-03-51] INFO: Starting token verification process
-[06-03-2024 09-03-51] ERROR: Error occurred during token verification
-[06-03-2024 09-03-52] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-52] INFO: Connected to postgres terminated
-[06-03-2024 09-03-53] INFO: User logged in Successfully
-    user: 6
-[06-03-2024 09-03-19] INFO: Starting token verification process
-[06-03-2024 09-03-19] INFO: Token validated successfully
-[06-03-2024 09-03-19] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-19] INFO: Connected to postgres terminated
-[06-03-2024 09-03-19] INFO: User retrieved successfully
-[06-03-2024 09-03-19] INFO: Starting access restriction process
-[06-03-2024 09-03-19] INFO: User has permission to perform this task
-[06-03-2024 09-03-19] ERROR: Error occured while creating an auction
-[06-03-2024 09-03-40] INFO: Starting token verification process
-[06-03-2024 09-03-40] INFO: Token validated successfully
-[06-03-2024 09-03-41] INFO: Successfully connected to postgres db
-[06-03-2024 09-03-41] INFO: Connected to postgres terminated
-[06-03-2024 09-03-41] INFO: User retrieved successfully
-[06-03-2024 09-03-41] INFO: Starting access restriction process
-[06-03-2024 09-03-41] INFO: User has permission to perform this task
-[06-03-2024 09-03-41] INFO: Connected to postgres terminated
-[06-03-2024 09-03-41] INFO: Auction created successfully
+[10-03-2024 12-03-34] INFO: Listening on localhost port 3000
+[10-03-2024 12-03-34] INFO: Documentation available at http://localhost:3000/docs
+[10-03-2024 12-03-05] INFO: Listening on localhost port 3000
+[10-03-2024 12-03-05] INFO: Documentation available at http://localhost:3000/docs
+[10-03-2024 12-03-09] INFO: Listening on localhost port 3000
+[10-03-2024 12-03-09] INFO: Documentation available at http://localhost:3000/docs
+[10-03-2024 01-03-03] INFO: Listening on localhost port 3000
+[10-03-2024 01-03-03] INFO: Documentation available at http://localhost:3000/docs
+[10-03-2024 01-03-16] INFO: Listening on localhost port 3000
+[10-03-2024 01-03-16] INFO: Documentation available at http://localhost:3000/docs
+[10-03-2024 01-03-24] INFO: Listening on localhost port 3000
+[10-03-2024 01-03-24] INFO: Documentation available at http://localhost:3000/docs
+[10-03-2024 01-03-08] INFO: Successfully connected to postgres db
+[10-03-2024 01-03-08] INFO: Connected to postgres terminated
+[10-03-2024 01-03-08] INFO: Calculated total renevue from orders
+[10-03-2024 01-03-55] INFO: Successfully connected to postgres db
+[10-03-2024 01-03-55] INFO: Connected to postgres terminated
+[10-03-2024 01-03-55] INFO: compared sales performance of products
+[10-03-2024 01-03-48] INFO: Successfully connected to postgres db
+[10-03-2024 01-03-48] INFO: Connected to postgres terminated
+[10-03-2024 01-03-31] ERROR: Can't find /analytics/calculate-sales-performance-in%20different-regions on this server
+[10-03-2024 01-03-52] INFO: Listening on localhost port 3000
+[10-03-2024 01-03-52] INFO: Documentation available at http://localhost:3000/docs
+[10-03-2024 01-03-56] ERROR: Can't find /analytics/calculate-sales-performance-in%20different-regions on this server
+[10-03-2024 01-03-57] ERROR: Can't find /analytics/calculate-sales-performance-in%20different-regions on this server
+[10-03-2024 01-03-01] INFO: Successfully connected to postgres db
+[10-03-2024 01-03-01] INFO: Connected to postgres terminated
+[10-03-2024 01-03-01] INFO: Calculated sales performance in different regions
+[10-03-2024 01-03-14] INFO: Listening on localhost port 3000
+[10-03-2024 01-03-14] INFO: Documentation available at http://localhost:3000/docs
+[10-03-2024 01-03-26] INFO: Listening on localhost port 3000
+[10-03-2024 01-03-26] INFO: Documentation available at http://localhost:3000/docs
+[10-03-2024 01-03-27] INFO: Listening on localhost port 3000
+[10-03-2024 01-03-27] INFO: Documentation available at http://localhost:3000/docs
+[10-03-2024 01-03-58] INFO: Listening on localhost port 3000
+[10-03-2024 01-03-58] INFO: Documentation available at http://localhost:3000/docs

@@ -46,3 +46,16 @@ exports.getUserCart = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.checkForAbandonedCarts = async (req, res, next) => {
+  try {
+    const data = await cartService.checkForAbandonedCarts();
+    res.status(200).json({
+      status: "success",
+      result: data.length,
+      data: data,
+    });
+  } catch (err) {
+    next(err);
+  }
+};

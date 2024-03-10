@@ -31,14 +31,12 @@ exports.addToCart = async (userId, productData) => {
     //EXECUTING THE QUERY
     let cart, query;
     if (!userCart || userCart.length === 0) {
-      query = `INSERT INTO carts(user_id, cart) values(${userId},'[${JSON.stringify(productData)}]') RETURNING *`;
+      query = `INSERT INTO carts(user_id, cart_items) values(${userId},'[${JSON.stringify(productData)}]') RETURNING *`;
     } else {
-      //! problem here
       query = `UPDATE carts
-    SET cart = cart || '[${JSON.stringify(productData)}]'::jsonb
+    SET cart_items = cart_items || '[${JSON.stringify(productData)}]'::jsonb
     WHERE user_id = ${userId} RETURNING *;`;
     }
-    logger.info(query);
     cart = (await pool.query(query)).rows[0];
 
     logger.info("Product added to cart successfully", cart);
@@ -53,10 +51,24 @@ exports.addToCart = async (userId, productData) => {
 exports.getCartByUserId = async (userId) => {
   try {
     logger.info(`Retrieving cart of user ${userId}`);
-    let query = `SELECT * FROM carts where user_id=${userId}`;
+    const query = `SELECT * FROM carts where user_id=${userId}`;
     return (await pool.query(query)).rows;
   } catch (error) {
     logger.error(`Error occured while retrieving to cart of user= ${userId}`);
+    throw error;
+  }
+};
+
+exports.checkForAbandonedCarts = async () => {
+  try {
+    const query = `
+      UPDATE carts
+      SET abandoned = true
+      WHERE CURRENT_TIMESTAMP - last_activity_time >'1 minutes' RETURNING *;
+    `;
+    return (await pool.query(query)).rows;
+  } catch (error) {
+    logger.error(`Error occured while calculating abandoned carts`);
     throw error;
   }
 };

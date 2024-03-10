@@ -1,15 +1,16 @@
 const express = require("express");
-const cartController = require("../controllers/cartController");
+const analyticsController = require("../controllers/analyticsController");
 const authentication = require("./../../middleware/authentication");
 
 const router = express.Router();
 
 /**
  * @openapi
- * /carts:
+ * /analytics/calculate-total-renevue:
  *   get:
- *     tags: [carts]
- *     summary: Returns all carts
+ *     tags: [analytics]
+ *     summary: calculate total renevue of products
+ *     description: calculate the total revenue generated from orders in the past month, broken down by product category
  *     security:
  *       - AdminKeyAuth: []
  *     responses:
@@ -23,101 +24,27 @@ const router = express.Router();
  *                 status:
  *                   type: string
  *                   default: success
- *                 result:
- *                   type: integer
  *                 data:
  *                   default: []
- *       '401':
+ *       401:
  *         description: You are not logged in! Please login to get access
- *       '403':
+ *       403:
  *         description: You do not have permission to perform this task
  */
 router.get(
-  "/",
+  "/calculate-total-renevue",
   authentication.verify,
   authentication.restrictTo("admin"),
-  cartController.getAllCarts,
+  analyticsController.calculateTotalRevenueFromOrders,
 );
 
 /**
  * @openapi
- * /carts/view:
+ * /analytics/compare-sales-performance:
  *   get:
- *     tags: [carts]
- *     summary: Returns all carts of a user
- *     security:
- *       - UserKeyAuth: []
- *     responses:
- *       200:
- *         description: Success
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   default: success
- *                 result:
- *                   type: integer
- *                 data:
- *                   default: []
- *       '401':
- *         description: You are not logged in! Please login to get access
- *       '403':
- *         description: You do not have permission to perform this task
- */
-router.get("/view", authentication.verify, cartController.getUserCart);
-
-/**
- * @openapi
- * /carts/add-to-cart:
- *   post:
- *     tags: [carts]
- *     summary: add to cart
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               product_id:
- *                 type: string
- *               quantity:
- *                 type: number
- *                 default: 1
- *     responses:
- *       200:
- *         description: Success
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   default: success
- *                 msg:
- *                   type: string
- *                 data:
- *                   type: object
- *       400:
- *         description: Bad Request
- *       401:
- *         description: Unauthorized, access denied
- *       404:
- *         description: Not Found
- */
-router.post("/add-to-cart", authentication.verify, cartController.addToCart);
-
-/**
- * @openapi
- * /carts/check-for-abandoned-carts:
- *   get:
- *     tags: [carts]
- *     summary: decide if cart is abandoned or not
- *     description: carts is abandoned if last_activity_time of cart is less than 1 minutes
+ *     tags: [analytics]
+ *     summary: compare sales performance
+ *     description: compare the sales performance of products in the current year with the previous year, including the percentage change in sales for each product.
  *     security:
  *       - AdminKeyAuth: []
  *     responses:
@@ -131,20 +58,86 @@ router.post("/add-to-cart", authentication.verify, cartController.addToCart);
  *                 status:
  *                   type: string
  *                   default: success
- *                 result:
- *                   type: integer
  *                 data:
  *                   default: []
- *       '401':
+ *       401:
  *         description: You are not logged in! Please login to get access
- *       '403':
+ *       403:
  *         description: You do not have permission to perform this task
  */
 router.get(
-  "/check-for-abandoned-carts",
+  "/compare-sales-performance",
   authentication.verify,
   authentication.restrictTo("admin"),
-  cartController.checkForAbandonedCarts,
+  analyticsController.compareSalesPerformance,
+);
+
+/**
+ * @openapi
+ * /analytics/analyze-abandoned-cart:
+ *   get:
+ *     tags: [analytics]
+ *     summary: analyze abandoned carts
+ *     description: analyze the frequency and reasons for abandoned shopping carts, including identifying common patterns or products left in carts without completing the purchase
+ *     security:
+ *       - AdminKeyAuth: []
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   default: success
+ *                 data:
+ *                   default: []
+ *       401:
+ *         description: You are not logged in! Please login to get access
+ *       403:
+ *         description: You do not have permission to perform this task
+ */
+router.get(
+  "/analyze-abandoned-cart",
+  authentication.verify,
+  authentication.restrictTo("admin"),
+  analyticsController.frequancyAndReasonForAbandonedCart,
+);
+
+/**
+ * @openapi
+ * /analytics/calculate-sales-performance-in-different-regions:
+ *   get:
+ *     tags: [analytics]
+ *     summary: calculate sales performance in different regions
+ *     description: Assess the sales performance of products across different geographical regions by calculating the total revenue generated by each product category in each region in the current year.
+ *     security:
+ *       - AdminKeyAuth: []
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   default: success
+ *                 data:
+ *                   default: []
+ *       401:
+ *         description: You are not logged in! Please login to get access
+ *       403:
+ *         description: You do not have permission to perform this task
+ */
+router.get(
+  "/calculate-sales-performance-in-different-regions",
+  authentication.verify,
+  authentication.restrictTo("admin"),
+  analyticsController.calculateSalesPerformanceInRegions,
 );
 
 module.exports = router;
