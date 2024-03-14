@@ -4,6 +4,7 @@ logs
 
 # Compiled javascript
 build
+dist
 
 # Dependency directory
 node_modules

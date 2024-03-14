@@ -3,7 +3,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./src/utils/swagger");
 
 const AppError = require("./src/utils/appError");
-const globalErrorHandler = require("./middleware/globalErrorHandler");
+const globalErrorHandler = require("./src/middleware/globalErrorHandler");
 const logger = require("./src/utils/logger");
 
 const userRouter = require("./src/routes/userRoutes");

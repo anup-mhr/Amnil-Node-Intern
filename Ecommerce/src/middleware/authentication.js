@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
-const User = require("./../src/models/userModel");
-const AppError = require("./../src/utils/appError");
-const pool = require("../databasePg");
-const logger = require("../src/utils/logger");
+const User = require("../models/userModel");
+const AppError = require("../utils/appError");
+const pool = require("../../databasePg");
+const logger = require("../utils/logger");
 
 exports.verify = async (req, res, next) => {
   try {

@@ -1,7 +1,7 @@
 const express = require("express");
 const productController = require("../controllers/productController");
-const uploadImage = require("./../../middleware/uploadImage");
-const authentication = require("./../../middleware/authentication");
+const uploadImage = require("../middleware/uploadImage");
+const authentication = require("../middleware/authentication");
 
 const router = express.Router();
 
