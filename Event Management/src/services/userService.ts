@@ -3,11 +3,12 @@ import { AppDataSource } from "../config/dbConfig";
 import logger from "../utils/logger";
 import bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
+import AppError from "../utils/AppError";
 
 const signToken = (id: string) => {
   if (!process.env.JWT_SECRET) {
     logger.fatal("JWT_SECRET not defined in env variable");
-    throw new Error("Internal Server Error");
+    throw new AppError("Internal Server Error");
   }
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -18,7 +19,7 @@ export const userService = {
   async createUser(userData: Partial<User>): Promise<User | undefined> {
     try {
       if (!userData.email || !userData.password) {
-        throw new Error("Invalid email or password");
+        throw new AppError("Invalid email or password", 400);
       }
 
       //hashing the password
@@ -26,9 +27,11 @@ export const userService = {
 
       const userRepository = AppDataSource.getRepository(User);
       const data = await userRepository.save(userData);
+      logger.info(`New user created with user_id: ${data.user_id}`);
       return data;
     } catch (error) {
-      logger.error(error, "something wrong in userService");
+      logger.error(error, "something wrong in while creating user");
+      throw error;
     }
   },
 
@@ -36,7 +39,7 @@ export const userService = {
     try {
       const { email, password } = userData;
       if (!email || !password) {
-        throw new Error("Please provide email and password");
+        throw new AppError("Please provide email and password", 400);
       }
 
       //2) check if user exist and password is correct
@@ -45,7 +48,7 @@ export const userService = {
         email,
       });
       if (!user || !(await bcrypt.compare(password, user.password))) {
-        throw new Error("Incorrect email or password");
+        throw new AppError("Invalid email or password", 401);
       }
 
       // 3) if everything is ok send token to user
@@ -54,29 +57,47 @@ export const userService = {
 
       return token;
     } catch (error) {
-      logger.error(error, "something wrong in userService");
+      logger.error(error, "something wrong in while logging");
       throw error;
     }
   },
 
   async getUsers(): Promise<User[]> {
-    const userRepository = AppDataSource.getRepository(User);
-    const data = await userRepository.find();
-    return data;
+    try {
+      const userRepository = AppDataSource.getRepository(User);
+      const data = await userRepository.find();
+      logger.info("fetched users list");
+      return data;
+    } catch (error) {
+      logger.error("Error occured while fetching users");
+      throw error;
+    }
   },
 
   async getUserById(id: string): Promise<User | null> {
-    const userRepository = AppDataSource.getRepository(User);
-    const data = await userRepository.findOneBy({ user_id: id });
-    return data;
+    try {
+      const userRepository = AppDataSource.getRepository(User);
+      const data = await userRepository.findOneBy({ user_id: id });
+      logger.info(data?.user_id, "fetched user data of user_id");
+      return data;
+    } catch (error) {
+      logger.info("Error occured while getting user");
+      throw error;
+    }
   },
 
   async deleteUser(id: string): Promise<void> {
-    const userRepository = AppDataSource.getRepository(User);
-    const user = await userRepository.findOneBy({ user_id: id });
-    if (!user) {
-      throw new Error("User not found");
+    try {
+      const userRepository = AppDataSource.getRepository(User);
+      const user = await userRepository.findOneBy({ user_id: id });
+      if (!user) {
+        throw new AppError("User not found", 404);
+      }
+      await userRepository.remove(user);
+      logger.info(user, "Deleted user");
+    } catch (error) {
+      logger.info("Error occured while deleting user");
+      throw error;
     }
-    await userRepository.remove(user);
   },
 };

@@ -5,7 +5,7 @@ export const userController = {
   async createUser(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await userService.createUser(req.body);
-      res.status(200).json({
+      res.status(201).json({
         status: "success",
         data: data,
       });
@@ -53,7 +53,7 @@ export const userController = {
   async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await userService.deleteUser(req.params.userId);
-      res.json({
+      res.status(204).json({
         status: "success",
         data: data,
       });

@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import logger from "./utils/logger";
 import userRouter from "./routes/userRoute";
 import eventRouter from "./routes/eventRoute";
@@ -7,6 +7,7 @@ import { CronJob } from "cron";
 import { sendEmail } from "./utils/sendEmail";
 import { eventListMailTemp } from "./emailTemplates/eventListMailTemp";
 import { eventService } from "./services/eventService";
+import AppError from "./utils/AppError";
 
 // import { eventService } from "./services/eventService";
 
@@ -24,7 +25,7 @@ app.use("/api/v1/event", eventRouter);
 // Schedule cron job to send email
 const admin_mail = process.env.ADMIN_EMAIL;
 const cron_schedule = process.env.CRON_SCHEDULE;
-if (!admin_mail || !cron_schedule) throw new Error("no admin mail or cron_schedule in env");
+if (!admin_mail || !cron_schedule) throw new AppError("no admin mail or cron_schedule in env");
 const job = new CronJob(
   cron_schedule,
   async function () {
@@ -41,9 +42,9 @@ const job = new CronJob(
 job.start();
 
 // Invalid url handling middleware
-app.all("*", (req: Request, res: Response) => {
+app.all("*", (req: Request, res: Response, next: NextFunction) => {
   logger.error(`Can't find ${req.originalUrl} on this server`);
-  res.status(505).json({ message: "Bad Request" });
+  next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
 });
 
 //Global error handling middleware

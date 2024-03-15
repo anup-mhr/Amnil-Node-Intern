@@ -10,7 +10,7 @@ export const eventController = {
   async createEvent(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await eventService.createEvent(req.body);
-      res.status(200).json({
+      res.status(201).json({
         status: "success",
         data: data,
       });
@@ -46,7 +46,7 @@ export const eventController = {
   async deleteEvent(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await eventService.deleteEvent(req.params.eventId);
-      res.json({
+      res.status(204).json({
         status: "success",
         data,
       });
@@ -59,7 +59,7 @@ export const eventController = {
     try {
       if (!req.user) throw new Error("User not found");
       const data = await eventService.registerEvent(req.params.eventId, req.user.user_id);
-      res.json({
+      res.status(201).json({
         status: "success",
         data,
       });
@@ -72,7 +72,7 @@ export const eventController = {
     try {
       const currentDate = new Date();
       const data = await eventService.getEventsByDate(currentDate);
-      res.json({
+      res.status(200).json({
         status: "success",
         data,
       });
