@@ -1,4 +1,4 @@
-import { Response, Request, NextFunction } from "express";
+import { Response, Request, NextFunction, ErrorRequestHandler } from "express";
 
 type err = {
   statusCode: number;
@@ -22,10 +22,14 @@ const sendErrorPro = (err: err, res: Response) => {
   }
 };
 
-const globalErrorHandler = (err: err, req: Request, res: Response, next: NextFunction) => {
+const globalErrorHandler: ErrorRequestHandler = (
+  err,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
-
   sendErrorPro(err, res);
 
   next();

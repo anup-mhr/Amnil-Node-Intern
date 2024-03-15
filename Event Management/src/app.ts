@@ -25,7 +25,7 @@ app.use("/api/v1/event", eventRouter);
 // Schedule cron job to send email
 const admin_mail = process.env.ADMIN_EMAIL;
 const cron_schedule = process.env.CRON_SCHEDULE;
-if (!admin_mail || !cron_schedule) throw new AppError("no admin mail or cron_schedule in env");
+if (!admin_mail || !cron_schedule) throw new AppError("no admin mail or cron_schedule in env", 500);
 const job = new CronJob(
   cron_schedule,
   async function () {

@@ -8,7 +8,7 @@ import AppError from "../utils/AppError";
 const signToken = (id: string) => {
   if (!process.env.JWT_SECRET) {
     logger.fatal("JWT_SECRET not defined in env variable");
-    throw new AppError("Internal Server Error");
+    throw new AppError("Internal Server Error", 500);
   }
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -19,7 +19,7 @@ export const userService = {
   async createUser(userData: Partial<User>): Promise<User | undefined> {
     try {
       if (!userData.email || !userData.password) {
-        throw new AppError("Invalid email or password", 400);
+        throw new AppError("Insufficient information", 400);
       }
 
       //hashing the password
@@ -74,11 +74,12 @@ export const userService = {
     }
   },
 
-  async getUserById(id: string): Promise<User | null> {
+  async getUserById(id: string): Promise<User> {
     try {
       const userRepository = AppDataSource.getRepository(User);
       const data = await userRepository.findOneBy({ user_id: id });
-      logger.info(data?.user_id, "fetched user data of user_id");
+      if (!data) throw new AppError("User not found", 404);
+      logger.info(data.user_id, "fetched user data of user_id");
       return data;
     } catch (error) {
       logger.info("Error occured while getting user");
