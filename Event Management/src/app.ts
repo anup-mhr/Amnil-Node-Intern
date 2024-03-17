@@ -8,19 +8,19 @@ import { sendEmail } from "./utils/sendEmail";
 import { eventListMailTemp } from "./emailTemplates/eventListMailTemp";
 import { eventService } from "./services/eventService";
 import AppError from "./utils/AppError";
-
-// import { eventService } from "./services/eventService";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./utils/swagger";
 
 const app = express();
 
+//MIDDLEWARES
 app.use(express.json()); //for parsing json
 app.use(express.urlencoded({ extended: false })); //for reading form data
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec)); //FOR API DOCUMENTATION
 
 //ROUTES
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/event", eventRouter);
-
-// eventService.getEventsByDate();
 
 // Schedule cron job to send email
 const admin_mail = process.env.ADMIN_EMAIL;

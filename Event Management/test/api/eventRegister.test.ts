@@ -6,9 +6,9 @@ const baseURL = "http://localhost:3000";
 
 describe("event register test suite", () => {
   describe("register user in event", () => {
-    let event_id: string;
     let authToken: string;
     let adminAuthToken: string;
+    const event_id: string = "fa1db52c-d66f-4546-9147-23f2ca7bdd13";
 
     const adminData: Partial<User> = {
       email: "anupmhrzn16@gmail.com",
@@ -22,9 +22,6 @@ describe("event register test suite", () => {
     beforeAll(async () => {
       adminAuthToken = (await request(baseURL).post("/api/v1/user/login").send(adminData)).body
         .token;
-
-      const response = await request(baseURL).get("/api/v1/event");
-      event_id = response.body.data[0].event_id;
       const userResponse = await request(baseURL).post("/api/v1/user").send(userData);
       userData.user_id = userResponse.body.data.user_id;
       authToken = (await request(baseURL).post("/api/v1/user/login").send(userData)).body.token;

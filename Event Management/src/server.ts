@@ -12,6 +12,7 @@ AppDataSource.initialize()
   .then(async () => {
     app.listen(port, () => {
       logger.info(`Listening on localhost port ${port}`);
+      logger.info(`Documentation of API on http://localhost:${port}/api-docs`);
     });
     logger.info("Data Source has been initialized!");
   })

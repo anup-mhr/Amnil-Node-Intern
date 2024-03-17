@@ -18,3 +18,5 @@ config.env
 
 # Debug log from npm
 npm-debug.log
+
+coverage
