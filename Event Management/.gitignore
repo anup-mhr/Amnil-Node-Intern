@@ -6,9 +6,15 @@ logs
 build
 dist
 
+# Coverage directory used by tools like istanbul
+coverage
+
 # Dependency directory
 node_modules
 
 # Enviroment variables
 config.env
 .env
+
+# Debug log from npm
+npm-debug.log

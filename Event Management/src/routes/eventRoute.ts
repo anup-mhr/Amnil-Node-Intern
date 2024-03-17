@@ -6,9 +6,15 @@ const router = Router();
 
 router.get("/list", eventController.getEventsByDate);
 
-router.route("/").get(eventController.getEvents).post(eventController.createEvent);
+router
+  .route("/")
+  .get(eventController.getEvents)
+  .post(authentication.verify, authentication.restrictTo("admin"), eventController.createEvent);
 
-router.route("/:eventId").get(eventController.getEventById).delete(eventController.deleteEvent);
+router
+  .route("/:eventId")
+  .get(eventController.getEventById)
+  .delete(authentication.verify, authentication.restrictTo("admin"), eventController.deleteEvent);
 
 router.get("/:eventId/register", authentication.verify, eventController.registerEvent);
 

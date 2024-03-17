@@ -20,7 +20,9 @@ export class EventRegistration {
   @JoinColumn({ name: "event_id" })
   event!: Event;
 
-  @ManyToOne(() => User, (user) => user.registrations)
+  @ManyToOne(() => User, (user) => user.registrations, {
+    cascade: true,
+  })
   @JoinColumn({ name: "user_id" })
   user!: User;
 }

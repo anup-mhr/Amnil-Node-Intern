@@ -1,5 +1,6 @@
 import request from "supertest";
 import { Event } from "../../src/models/Event";
+import { User } from "../../src/models/User";
 
 const baseURL = "http://localhost:3000";
 describe("Event api test suite", () => {
@@ -17,20 +18,38 @@ describe("Event api test suite", () => {
       event_date: new Date(),
     };
 
-    afterAll(async () => {
-      await request(baseURL).delete(`/api/v1/event/${eventData.event_id}`);
+    let authToken: string;
+    const adminData: Partial<User> = {
+      email: "anupmhrzn16@gmail.com",
+      password: "12345678",
+    };
+
+    beforeAll(async () => {
+      authToken = (await request(baseURL).post("/api/v1/user/login").send(adminData)).body.token;
     });
 
-    it("create event by admin", async () => {
-      const response = await request(baseURL).post("/api/v1/event").send(eventData);
+    afterAll(async () => {
+      await request(baseURL)
+        .delete(`/api/v1/event/${eventData.event_id}`)
+        .set("Authorization", `Bearer ${authToken}`);
+    });
+
+    it("Admin: create event by admin", async () => {
+      const response = await request(baseURL)
+        .post("/api/v1/event")
+        .send(eventData)
+        .set("Authorization", `Bearer ${authToken}`);
       eventData.event_id = response.body.data.event_id;
       expect(response.statusCode).toBe(201);
       expect(response.body.status).toBe("success");
       expect(response.body.data).toMatchObject<Event>;
     });
 
-    it("throws error for insuffient info", async () => {
-      const response = await request(baseURL).post("/api/v1/event").send(wrongEvent);
+    it("Admin: throws error for insuffient info", async () => {
+      const response = await request(baseURL)
+        .post("/api/v1/event")
+        .send(wrongEvent)
+        .set("Authorization", `Bearer ${authToken}`);
       expect(response.statusCode).toBe(400);
       expect(response.body.status).toBe("fail");
       expect(response.body.message).toBe("Insufficient information");
@@ -69,6 +88,13 @@ describe("Event api test suite", () => {
   });
 
   describe("delete a event", () => {
+    let authToken: string;
+
+    const adminData: Partial<User> = {
+      email: "anupmhrzn16@gmail.com",
+      password: "12345678",
+    };
+
     const eventData: Partial<Event> = {
       title: "tour",
       description: "going to tour",
@@ -77,20 +103,27 @@ describe("Event api test suite", () => {
     };
 
     beforeAll(async () => {
-      const response = await request(baseURL).post("/api/v1/event").send(eventData);
+      authToken = (await request(baseURL).post("/api/v1/user/login").send(adminData)).body.token;
+      const response = await request(baseURL)
+        .post("/api/v1/event")
+        .send(eventData)
+        .set("Authorization", `Bearer ${authToken}`);
       eventData.event_id = response.body.data.event_id;
     });
 
-    it("delete event using correct id", async () => {
-      const response = await request(baseURL).post(`/api/v1/event/${eventData.event_id}`);
+    it("Admin: delete event using correct id", async () => {
+      const response = await request(baseURL)
+        .post(`/api/v1/event/${eventData.event_id}`)
+        .set("Authorization", `Bearer ${authToken}`);
       const updatedData = response.body.data;
       const exists = eventData.event_id == updatedData?.event_id;
       expect(exists).toBe(false);
     });
-    it("delete event by wrong id", async () => {
-      const response = await request(baseURL).get(
-        "/api/v1/event/12431897-b916-4e59-8cbd-58064b8139cf",
-      );
+
+    it("Admin: delete event by wrong id", async () => {
+      const response = await request(baseURL)
+        .get("/api/v1/event/12431897-b916-4e59-8cbd-58064b8139cf")
+        .set("Authorization", `Bearer ${authToken}`);
       expect(response.statusCode).toBe(404);
       expect(response.body.status).toBe("fail");
       expect(response.body.message).toBe("Event Not Found");
