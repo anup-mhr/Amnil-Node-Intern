@@ -4,14 +4,16 @@ import logger from "../utils/logger";
 import bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import AppError from "../utils/AppError";
+import { sendEmail } from "../utils/sendEmail";
+import { accountConfirmation } from "../emailTemplates/accountConfirmation";
 
-const signToken = (id: string) => {
+const signToken = (id: string, expireTime: string) => {
   if (!process.env.JWT_SECRET) {
     logger.fatal("JWT_SECRET not defined in env variable");
     throw new AppError("Internal Server Error", 500);
   }
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
+    expiresIn: expireTime,
   });
 };
 
@@ -27,6 +29,18 @@ export const userService = {
 
       const userRepository = AppDataSource.getRepository(User);
       const data = await userRepository.save(userData);
+
+      //generating link token
+      const token = signToken(data.user_id, "10h");
+
+      //send confirmation email
+      sendEmail(
+        accountConfirmation(`http://localhost:3000/api/v1/user/verify/${token}`),
+        userData.email,
+        "Confirm your Email",
+      );
+      logger.info("confirmation email sent");
+
       logger.info(`New user created with user_id: ${data.user_id}`);
       return data;
     } catch (error) {
@@ -35,7 +49,7 @@ export const userService = {
     }
   },
 
-  async login(userData: Partial<User>): Promise<string | undefined> {
+  async login(userData: Partial<User>): Promise<{ token: string; refreshToken: string }> {
     try {
       const { email, password } = userData;
       if (!email || !password) {
@@ -51,14 +65,76 @@ export const userService = {
         throw new AppError("Invalid email or password", 401);
       }
 
-      // 3) if everything is ok send token to user
-      const token = signToken(user.user_id);
+      //3) check if user is verified or not
+      if (!user.isVerified) {
+        throw new AppError("User is not verified", 401);
+      }
+
+      // 4) if everything is ok send token to user
+      if (!process.env.JWT_EXPIRES_IN || !process.env.REFRESS_TOKEN_EXPIRES_IN) {
+        throw new AppError("JWT expire date not given", 500);
+      }
+      const token = signToken(user.user_id, process.env.JWT_EXPIRES_IN);
+      const refreshToken = signToken(user.user_id, process.env.REFRESS_TOKEN_EXPIRES_IN);
       logger.info({ user: user.user_id }, "User logged in Successfully");
 
-      return token;
+      return { token, refreshToken };
     } catch (error) {
       logger.error(error, "something wrong in while logging");
       throw error;
+    }
+  },
+
+  async refreshToken(refreshToken: string): Promise<{ token: string; newRefreshToken: string }> {
+    try {
+      if (!refreshToken) {
+        throw new AppError("Refresh token not provided", 400);
+      }
+      if (
+        !process.env.JWT_EXPIRES_IN ||
+        !process.env.REFRESS_TOKEN_EXPIRES_IN ||
+        !process.env.JWT_SECRET
+      ) {
+        throw new AppError("Env variable not setup", 500);
+      }
+      const decode = jwt.verify(refreshToken, process.env.JWT_SECRET) as jwt.JwtPayload;
+
+      const userRepository = AppDataSource.getRepository(User);
+      const user = await userRepository.findOneBy({
+        user_id: decode.id,
+      });
+
+      if (!user) throw new AppError("Invalid refresh token", 404);
+
+      const token = signToken(decode.id, process.env.JWT_EXPIRES_IN);
+      const newRefreshToken = signToken(decode.id, process.env.REFRESS_TOKEN_EXPIRES_IN);
+      return { token, newRefreshToken };
+    } catch (error) {
+      logger.error(error, "something wrong in while getting refresh token");
+      throw new AppError("Invalid refresh token", 403);
+    }
+  },
+
+  async verifyEmail(token: string): Promise<void> {
+    try {
+      if (!token) {
+        throw new AppError("Invalid link address", 404);
+      }
+      if (!process.env.JWT_SECRET) {
+        throw new AppError("Env variable not setup", 500);
+      }
+      const decode = jwt.verify(token, process.env.JWT_SECRET) as jwt.JwtPayload;
+
+      await AppDataSource.createQueryBuilder()
+        .update(User)
+        .set({
+          isVerified: true,
+        })
+        .where("user_id = :user_id", { user_id: decode.id })
+        .execute();
+    } catch (error) {
+      logger.error(error, "something wrong in while verifying email");
+      throw new AppError("Invalid email verify link", 403);
     }
   },
 

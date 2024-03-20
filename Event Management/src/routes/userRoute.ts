@@ -46,6 +46,10 @@ const router = Router();
  */
 router.post("/login", userController.loginUser);
 
+router.post("/refresh-token", userController.refreshToken);
+
+router.get("/verify/:token", userController.verifyEmail);
+
 /**
  * @openapi
  * /api/v1/user/:

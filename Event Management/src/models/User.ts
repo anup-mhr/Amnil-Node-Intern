@@ -15,6 +15,9 @@ export class User {
   @Column({ default: "user" })
   role!: string;
 
+  @Column({ default: false })
+  isVerified!: boolean;
+
   @OneToMany(() => EventRegistration, (eventRegistration) => eventRegistration.user)
   registrations!: EventRegistration[];
 }

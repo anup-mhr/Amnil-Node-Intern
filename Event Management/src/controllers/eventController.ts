@@ -1,6 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import { eventService } from "../services/eventService";
 import { User } from "../models/User";
+import AppError from "../utils/AppError";
 
 interface CustomRequest extends Request {
   user?: User;
@@ -57,7 +58,7 @@ export const eventController = {
 
   async registerEvent(req: CustomRequest, res: Response, next: NextFunction) {
     try {
-      if (!req.user) throw new Error("User not found");
+      if (!req.user) throw new AppError("User not found", 404);
       const data = await eventService.registerEvent(req.params.eventId, req.user.user_id);
       res.status(201).json({
         status: "success",

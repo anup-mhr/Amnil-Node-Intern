@@ -16,10 +16,36 @@ export const userController = {
 
   async loginUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const token = await userService.login(req.body);
+      const { token, refreshToken } = await userService.login(req.body);
       res.status(200).json({
         status: "success",
         token,
+        refreshToken,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async refreshToken(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { token, newRefreshToken } = await userService.refreshToken(req.body.refreshToken);
+      res.status(200).json({
+        status: "success",
+        token,
+        refreshToken: newRefreshToken,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async verifyEmail(req: Request, res: Response, next: NextFunction) {
+    try {
+      await userService.verifyEmail(req.params.token);
+      res.status(200).json({
+        status: "success",
+        message: "Email has been verified",
       });
     } catch (error) {
       next(error);
