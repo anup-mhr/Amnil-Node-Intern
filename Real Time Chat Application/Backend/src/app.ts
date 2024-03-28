@@ -4,17 +4,17 @@ import AppError from "./utils/AppError";
 import globalErrorHandler from "./middleware/globalErrorHandler";
 import authRouter from "./routes/authRoute";
 import roomRouter from "./routes/roomRoute";
-import messageRouter from "./routes/roomRoute";
+import messageRouter from "./routes/messageRoute";
 
-const app = express();
+import { app } from "./socket/socket";
 
 //MIDDLEWARES
 app.use(express.json()); //for parsing json
 
 //ROUTES
-app.use("/api/auth", authRouter);
-app.use("/appi/room", roomRouter);
-app.use("/app/message", messageRouter);
+app.use("/api/auth/", authRouter);
+app.use("/api/message/", messageRouter);
+app.use("/api/room/", roomRouter);
 
 // Invalid url handling middleware
 app.all("*", (req: Request, res: Response, next: NextFunction) => {

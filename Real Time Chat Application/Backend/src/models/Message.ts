@@ -11,7 +11,7 @@ export class Message {
   room_id!: string;
 
   @Column({ nullable: false })
-  sender!: string;
+  sender!: number;
 
   @Column({ type: "text", nullable: false })
   message!: string;
@@ -19,11 +19,11 @@ export class Message {
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt!: Date;
 
-  @ManyToOne(() => Room, (room) => room.messages)
+  @ManyToOne(() => Room, (room) => room.messages, { cascade: true, onDelete: "CASCADE" })
   @JoinColumn({ name: "room_id" })
   room!: Room;
 
-  @OneToOne(() => User, (user) => user.message)
+  @OneToOne(() => User, (user) => user.message, { cascade: true, onDelete: "CASCADE" })
   @JoinColumn({ name: "sender" })
   user!: User;
 }

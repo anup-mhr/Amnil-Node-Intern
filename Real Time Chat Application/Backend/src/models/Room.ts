@@ -1,10 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Entity, Column, OneToMany, PrimaryColumn } from "typeorm";
 import { Message } from "./Message";
 
 @Entity({ name: "rooms" })
 export class Room {
-  @PrimaryGeneratedColumn()
-  room_id!: number;
+  @PrimaryColumn()
+  room_id!: string;
 
   @Column({ type: "int", array: true })
   members!: number[];
